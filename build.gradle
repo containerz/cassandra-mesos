@@ -1,0 +1,71 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+version = '0.1.1-SNAPSHOT'
+
+jar.archiveName = "cassandra-mesos-${version}.jar"
+
+repositories {
+    mavenCentral()
+}
+
+buildDir = 'out/gradle'
+libsDirName = '../../'
+
+sourceSets {
+    main {
+        java { srcDirs = ['src/java'] }
+    }
+    test {
+        java { srcDirs = ['src/java'] }
+    }
+}
+
+dependencies {
+    compile "org.apache.mesos:mesos:0.22.0"
+    compile "com.google.protobuf:protobuf-java:2.5.0"
+    compile "org.apache.cassandra:cassandra-all:2.1.4"
+
+    compile "com.google.guava:guava:18.0"
+    compile "org.jetbrains:annotations:13.0"
+    compile "joda-time:joda-time:2.7"
+
+    compile "org.slf4j:slf4j-api:1.7.10"
+    compile "org.slf4j:jcl-over-slf4j:1.7.10"
+    compile "org.slf4j:log4j-over-slf4j:1.7.10"
+    compile "org.slf4j:jul-to-slf4j:1.7.10"
+    compile "ch.qos.logback:logback-classic:1.1.2"
+
+    compile "org.glassfish.jersey.containers:jersey-container-grizzly2-http:2.16"
+    compile "org.glassfish.jersey.media:jersey-media-json-jackson:2.16"
+    compile "com.fasterxml.jackson.core:jackson-core:2.3.2"
+    compile "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.3.2"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.3.2"
+
+    compile "junit:junit:4.12"
+    compile "org.assertj:assertj-core:1.7.1"
+    compile "org.mockito:mockito-core:2.0.5-beta"
+}
+
+task libs(type: Copy) {
+    from sourceSets.main.runtimeClasspath
+    into '.libs/tmp'
+}
+
+task protoc(type:Exec) {
+    commandLine 'protoc', 'src/java/io/mesosphere/mesos/frameworks/cassandra/model.proto', '--java_out=src/java'
+}
+
+jar {
+    dependsOn 'test'
+    doFirst {
+        from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }) {
+            exclude "*"
+            exclude "about_files/*"
+            exclude "META-INF/*.SF"
+            exclude "META-INF/*.DSA"
+            exclude "META-INF/*.RSA"
+        }
+    }
+    manifest.attributes("Main-Class": "io.mesosphere.mesos.frameworks.cassandra.framework.Main")
+}
