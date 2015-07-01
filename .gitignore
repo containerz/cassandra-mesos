@@ -11,6 +11,9 @@ atlassian-ide-plugin.xml
 *.iws
 out
 
+# Vagrant
+src/vagrant/.vagrant
+
 # Mac
 .DS_Store
 
