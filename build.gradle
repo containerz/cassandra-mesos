@@ -1,3 +1,10 @@
+/*
+    The Cassandra-on-Mesos framework to deploy Apache Cassandra to Apache Mesos
+    License: Apache 2 http://www.apache.org/licenses/LICENSE-2.0.txt
+    Authors: Ben Whitehead <ben.whitehead@mesosphere.io>, Robert Stupp <snazy@snazy.de>
+    Org:     http://mesos.apache.org/
+ */
+
 apply plugin: 'java'
 apply plugin: 'idea'
 
