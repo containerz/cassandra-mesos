@@ -23,6 +23,7 @@ install_mesos() {
 
     ip=$(cat /etc/hosts | grep `hostname` | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
     echo $ip > "/etc/mesos-$mode/ip"
+    echo "ports:[5000-32000]" > "/etc/mesos-slave/resources"
 
     if [ $mode == "master" ]; then
         ln -s /lib/init/upstart-job /etc/init.d/mesos-master

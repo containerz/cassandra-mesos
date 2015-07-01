@@ -24,6 +24,12 @@ target/
 # backup files
 *~
 
+# Other
+jre.tar.gz
+apache-cassandra-2.1.4-bin.tar.gz
+cassandra-mesos-*.jar
+todo.txt
+
 # generated log files and rotated logs
 **/cassandra-mesos.log
 **/cassandra-mesos.log*.zip
@@ -39,5 +45,3 @@ driver-extensions/cluster-loadtest/loadtest-*/**
 **/licenses/
 **/THIRD-PARTY.txt
 
-cassandra-mesos-*.jar
-todo.txt

@@ -8,7 +8,7 @@
 apply plugin: 'java'
 apply plugin: 'idea'
 
-version = '0.1.1-SNAPSHOT'
+version = '0.1.1'
 
 jar.archiveName = "cassandra-mesos-${version}.jar"
 
